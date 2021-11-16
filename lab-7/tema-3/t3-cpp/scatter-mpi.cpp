@@ -3,6 +3,7 @@
 #include <iostream>
 #include <fstream>
 
+#include "timer.h"
 #include "mpi.h"
 
 using namespace std;
@@ -56,6 +57,8 @@ int main() {
     int *auxF = new int[greatestNumberSize / p], *auxS = new int[greatestNumberSize / p], *auxR = new int[
     greatestNumberSize / p];
 
+    Timer timer = Timer();
+    timer.start();
     MPI_Scatter(firstNumber, greatestNumberSize / p, MPI_INT, auxF, greatestNumberSize / p, MPI_INT, 0, MPI_COMM_WORLD);
     MPI_Scatter(secondNumber, greatestNumberSize / p, MPI_INT, auxS, greatestNumberSize / p, MPI_INT, 0,
                 MPI_COMM_WORLD);
@@ -66,7 +69,6 @@ int main() {
         carry = currentSum / 10;
         auxR[i] = currentSum % 10;
     }
-//    cout << rank << " |S| " << carry << endl;
 
     if (rank != 0) {
         // Receive carry
@@ -94,6 +96,8 @@ int main() {
     if (rank == 0) {
         MPI_Recv(&carry, 1, MPI_INT, p - 1, 0, MPI_COMM_WORLD, &status);
         result[greatestNumberSize] = carry;
+        cout << timer.stop();
+        /*
         for (int i = greatestNumberSize; i >= 0; --i) {
             if (i == firstNumberSize) {
                 if (result[firstNumberSize] != 0)
@@ -101,6 +105,7 @@ int main() {
             } else if (i < firstNumberSize)
                 cout << result[i];
         }
+         */
     }
 
     MPI_Finalize();

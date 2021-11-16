@@ -3,6 +3,8 @@
 #include <iostream>
 #include <fstream>
 
+#include "timer.h"
+
 using namespace std;
 
 void stoia(const string &stringValue, int arrayValue[], int arraySize) {
@@ -40,6 +42,8 @@ int main() {
     stoia(firstNumberStr, firstNumber, greatestNumberSize);
     stoia(secondNumberStr, secondNumber, greatestNumberSize);
 
+    Timer timer = Timer();
+    timer.start();
     int carry = 0;
     for (int i = 0; i < greatestNumberSize; ++i) {
         int currentSum = (firstNumber[i] + secondNumber[i] + carry);
@@ -47,7 +51,9 @@ int main() {
         result[i] = currentSum % 10;
     }
     result[greatestNumberSize] = carry;
+    cout << timer.stop();
 
+    /*
     for (int i = greatestNumberSize; i >= 0; --i) {
         if (i == greatestNumberSize) {
             if (result[greatestNumberSize] != 0)
@@ -55,5 +61,6 @@ int main() {
         } else
             cout << result[i];
     }
+     */
     return 0;
 }

@@ -3,6 +3,7 @@
 #include <iostream>
 #include <fstream>
 
+#include "timer.h"
 #include "mpi.h"
 
 using namespace std;
@@ -54,6 +55,8 @@ int main() {
     if (rank == 0) {
         int cat = greatestNumberSize / (p - 1), rest = greatestNumberSize % (p - 1);
         start = 0;
+        Timer timer = Timer();
+        timer.start();
         for (int i = 1; i < p; ++i) {
             end = start + cat + (rest > 0 ? 1 : 0);
             rest--;
@@ -68,7 +71,9 @@ int main() {
             MPI_Recv(&end, 1, MPI_INT, i, 0, MPI_COMM_WORLD, &status);
             MPI_Recv(result + start, end - start, MPI_INT, i, 0, MPI_COMM_WORLD, &status);
         }
+        cout << timer.stop();
 
+        /*
         for (int i = greatestNumberSize; i >= 0; --i) {
             if (i == greatestNumberSize) {
                 if (result[greatestNumberSize] != 0)
@@ -76,6 +81,7 @@ int main() {
             } else
                 cout << result[i];
         }
+         */
     } else {
         MPI_Recv(&start, 1, MPI_INT, 0, 0, MPI_COMM_WORLD, &status);
         MPI_Recv(&end, 1, MPI_INT, 0, 0, MPI_COMM_WORLD, &status);
