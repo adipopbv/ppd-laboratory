@@ -11,11 +11,11 @@ public class PolynomialsGenerator {
         Random random = new Random();
 
         Scanner sc = new Scanner(System.in);
-        System.out.println("number of polynomials: ");
+        System.out.print("number of polynomials: ");
         polynomialsCount = sc.nextInt();
-        System.out.println("max exponent: ");
+        System.out.print("max exponent: ");
         maxExponent = sc.nextInt();
-        System.out.println("number of terms: ");
+        System.out.print("number of terms: ");
         termsCount = sc.nextInt();
 
         for (int i = 0; i < polynomialsCount; i++) {
@@ -44,7 +44,8 @@ public class PolynomialsGenerator {
 
                 for (int j = 0; j < termsCount; j++) {
                     bw.write(coefficients[j] + " " + exponents[j]);
-                    bw.newLine();
+                    if (j < termsCount - 1)
+                        bw.newLine();
                 }
                 bw.close();
                 fos.close();
