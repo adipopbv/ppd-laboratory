@@ -20,6 +20,17 @@
 - adding more threads does not mean better performance
 - the performance is not so much impared by the number of terms the program has to process
 
+## Syncronization
+
+### Weak points
+
+- when adding to the linked list
+- when popping from the queue
+
+### Solutions
+
+- using `syncronized` in `MyThread` for any operation that needs to modify the state of the linked list or the queue
+
 ## Diagrams
 
 ![java](./java-diagram.png)
