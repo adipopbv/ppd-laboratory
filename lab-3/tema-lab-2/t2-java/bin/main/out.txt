@@ -1,7 +1,0 @@
-trial_no,average_time,threads
-1,,1
-2,,2
-3,,4
-4,,8
-5,,1
-6,,2
